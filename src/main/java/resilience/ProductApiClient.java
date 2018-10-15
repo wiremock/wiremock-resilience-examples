@@ -14,8 +14,13 @@ import java.io.IOException;
 @Component
 public class ProductApiClient {
 
-    private HttpClient httpClient = HttpClientBuilder.create().build();
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final HttpClient httpClient;
+    private final ObjectMapper objectMapper;
+
+    public ProductApiClient() {
+        httpClient = HttpClientBuilder.create().build();
+        objectMapper = new ObjectMapper();
+    }
 
     @Value("${productsapi.baseurl}")
     String baseUrl;
