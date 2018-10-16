@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class LongWaitTest extends TestBase {
 
 
-    @Test(timeout = 2000)
+    @Test(timeout = 3000)
     public void returns_ok_when_product_response_is_as_expected() throws Exception {
         mockProductApi.stubFor(
                 get(urlPathEqualTo("/products/123"))
@@ -29,7 +29,7 @@ public class LongWaitTest extends TestBase {
                         .willReturn(ok()
                                 .withHeader("Content-Type", "application/json")
                                 .withBodyFile("ok-recommended.json")
-                                .withFixedDelay(3000))
+                                .withFixedDelay(5000))
         );
 
         HttpResponse response = executeGet("/products/123");
