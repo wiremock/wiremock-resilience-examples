@@ -20,7 +20,7 @@ public class FlakeTest extends TestBase {
 
 
     @Test
-    public void returns_ok_when_product_response_is_as_expected() throws Exception {
+    public void returns_ok_for_all_product_gets() throws Exception {
         mockProductApi.stubFor(
                 get(urlPathEqualTo("/products/123"))
                     .inScenario("the-flake")
