@@ -1,6 +1,8 @@
 package resilience;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.resilience4j.retry.Retry;
+import io.github.resilience4j.retry.RetryConfig;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.time.Duration;
 
 @Component
 public class ProductApiClient {
@@ -26,6 +29,16 @@ public class ProductApiClient {
     String baseUrl;
 
     public ProductDetails getProduct(String productId) {
+        RetryConfig config = RetryConfig.custom()
+                .maxAttempts(3)
+                .waitDuration(Duration.ofMillis(200))
+                .build();
+        Retry retry = Retry.of("retry-product", config);
+
+        return retry.executeSupplier(() -> doGetProduct(productId));
+    }
+
+    private ProductDetails doGetProduct(String productId) {
         try {
             String url = baseUrl + "/products/" + productId;
             HttpResponse httpResponse = httpClient.execute(new HttpGet(url));
