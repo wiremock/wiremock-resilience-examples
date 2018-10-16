@@ -29,7 +29,7 @@ public class LongWaitTest extends TestBase {
                         .willReturn(ok()
                                 .withHeader("Content-Type", "application/json")
                                 .withBodyFile("ok-recommended.json")
-                                .withFixedDelay(3000))
+                                .withFixedDelay(5000))
         );
 
         HttpResponse response = executeGet("/products/123");
