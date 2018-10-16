@@ -14,15 +14,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class DrippingTapTest extends TestBase {
 
-
-    @Test(timeout = 2000)
+    @Test(timeout = 3000)
     public void returns_ok_when_product_response_is_as_expected() throws Exception {
         mockProductApi.stubFor(
                 get(urlPathEqualTo("/products/123"))
                     .willReturn(ok()
                         .withHeader("Content-Type", "application/json")
                         .withBodyFile("ok-product.json")
-                        .withChunkedDribbleDelay(5, 3000))
+                        .withChunkedDribbleDelay(5, 5000))
         );
 
         HttpResponse response = executeGet("/products/123");
