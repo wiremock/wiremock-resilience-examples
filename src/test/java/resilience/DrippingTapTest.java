@@ -21,7 +21,7 @@ public class DrippingTapTest extends TestBase {
                     .willReturn(ok()
                         .withHeader("Content-Type", "application/json")
                         .withBodyFile("ok-product.json")
-                        .withChunkedDribbleDelay(5, 3000))
+                        .withChunkedDribbleDelay(5, 5000))
         );
 
         HttpResponse response = executeGet("/products/123");
