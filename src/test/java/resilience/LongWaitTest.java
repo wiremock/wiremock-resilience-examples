@@ -33,8 +33,11 @@ public class LongWaitTest extends TestBase {
         );
 
         HttpResponse response = executeGet("/products/123");
+        String body = EntityUtils.toString(response.getEntity());
 
-        assertThat(response.getStatusLine().getStatusCode()).isEqualTo(500);
+        assertThat(response.getStatusLine().getStatusCode()).isEqualTo(200);
+        assertThat(body).contains("Cheese");
+        assertThat(body).contains("Default Recommendation");
     }
 
 }
