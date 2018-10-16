@@ -31,7 +31,7 @@ public class ResilienceDemoApp implements WebMvcConfigurer {
         CloseableHttpClient httpClient = HttpClientBuilder.create()
                 .setDefaultRequestConfig(RequestConfig
                         .custom()
-                        .setSocketTimeout(1000).build())
+                        .setSocketTimeout(500).build())
                 .build();
         return new RestTemplate(new HttpComponentsClientHttpRequestFactory(httpClient));
     }
