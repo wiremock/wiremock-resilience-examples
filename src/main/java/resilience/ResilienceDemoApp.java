@@ -1,5 +1,8 @@
 package resilience;
 
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
@@ -25,7 +28,12 @@ public class ResilienceDemoApp implements WebMvcConfigurer {
 
     @Bean
     public RestTemplate restTemplate() {
-        return new RestTemplate(new HttpComponentsClientHttpRequestFactory());
+        CloseableHttpClient httpClient = HttpClientBuilder.create()
+                .setDefaultRequestConfig(RequestConfig
+                        .custom()
+                        .setSocketTimeout(1000).build())
+                .build();
+        return new RestTemplate(new HttpComponentsClientHttpRequestFactory(httpClient));
     }
 
 

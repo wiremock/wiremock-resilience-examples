@@ -34,8 +34,7 @@ public class LongWaitTest extends TestBase {
 
         HttpResponse response = executeGet("/products/123");
 
-        assertThat(response.getStatusLine().getStatusCode()).isEqualTo(200);
-        assertThat(EntityUtils.toString(response.getEntity())).contains("Cheese");
+        assertThat(response.getStatusLine().getStatusCode()).isEqualTo(500);
     }
 
 }
