@@ -19,7 +19,7 @@ public class ShopResource {
     @Autowired
     private RecommendationsApiClient recommendationsApiClient;
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/shop/products/{id}")
     public ModelAndView getProduct(@PathVariable("id") String productId) {
         ProductDetails productDetails = productApiClient.getProduct(productId);
         List<RecommendedProduct> recommendedations = recommendationsApiClient.getRecommendations(productId);

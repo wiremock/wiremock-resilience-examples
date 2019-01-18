@@ -1,6 +1,7 @@
 package resilience;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import io.restassured.RestAssured;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -36,6 +37,9 @@ public class TestBase {
                         .withHeader("Content-Type", "application/json")
                         .withBodyFile("ok-recommended.json"))
         );
+
+        RestAssured.baseURI = "http://localhost:9000";
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 
         testClient = HttpClientBuilder.create()
                 .disableAutomaticRetries()
