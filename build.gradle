@@ -12,6 +12,7 @@ buildscript {
 
 plugins {
 //    id "net.foragerr.jmeter" version "1.0.10-3.3"
+    id 'com.github.psxpaul.execfork' version '0.1.8'
 }
 
 apply plugin: 'java'
@@ -48,3 +49,19 @@ dependencies {
     testCompile "io.rest-assured:rest-assured:3.3.0"
     testCompile 'com.github.tomakehurst:wiremock-standalone:2.20.0'
 }
+
+task runProductsApiMock(type: com.github.psxpaul.task.JavaExecFork) {
+    classpath = sourceSets.test.runtimeClasspath
+    main = 'com.github.tomakehurst.wiremock.standalone.WireMockServerRunner'
+    args = [ '--port', '8100', '--root-dir', "${project.projectDir}/wiremock/products-api" ]
+    waitForPort = 8100
+}
+
+task runRecommendationsApiMock(type: com.github.psxpaul.task.JavaExecFork) {
+    classpath = sourceSets.test.runtimeClasspath
+    main = 'com.github.tomakehurst.wiremock.standalone.WireMockServerRunner'
+    args = [ '--port', '8101', '--root-dir', "${project.projectDir}/wiremock/recommendations-api" ]
+    waitForPort = 8101
+}
+
+bootRun.dependsOn([runProductsApiMock,runRecommendationsApiMock])
