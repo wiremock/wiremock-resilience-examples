@@ -7,7 +7,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 
 @RunWith(SpringRunner.class)
@@ -18,7 +17,6 @@ public class ExampleTest extends TestBase {
     public void returns_ok_when_product_response_is_as_expected() {
         mockRecommendationsApi.stubFor(
                 get(urlPathEqualTo("/api/recommendations"))
-                        .atPriority(10)
                         .willReturn(ok()
                                 .withHeader("Content-Type", "application/json")
                                 .withBodyFile("ok-recommended.json"))

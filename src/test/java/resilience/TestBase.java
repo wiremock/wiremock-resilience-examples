@@ -20,8 +20,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestBase {
 
-    protected HttpClient testClient;
-
     @Rule
     public WireMockRule mockProductApi = new WireMockRule(8100);
 
@@ -41,19 +39,6 @@ public class TestBase {
         RestAssured.baseURI = "http://localhost:9000";
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 
-        testClient = HttpClientBuilder.create()
-                .disableAutomaticRetries()
-                .disableRedirectHandling()
-                .build();
-
     }
 
-    protected HttpResponse executeGet(String relativeUrl) throws Exception {
-        HttpUriRequest request = RequestBuilder.get(appUrl(relativeUrl)).build();
-        return testClient.execute(request);
-    }
-
-    protected String appUrl(String path) {
-        return "http://localhost:9000" + path;
-    }
 }
