@@ -16,13 +16,6 @@ public class ResilienceDemoApp implements WebMvcConfigurer {
         SpringApplication.run(ResilienceDemoApp.class, args);
     }
 
-//    @Override
-//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry
-//                .addResourceHandler("/static/**")
-//                .addResourceLocations("classpath:assets");
-//    }
-
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate(new HttpComponentsClientHttpRequestFactory());
