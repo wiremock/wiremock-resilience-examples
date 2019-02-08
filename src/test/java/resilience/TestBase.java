@@ -29,7 +29,7 @@ public class TestBase {
     @Before
     public void init() {
         mockRecommendationsApi.stubFor(
-            get(urlPathEqualTo("/recommendations"))
+            get(urlPathEqualTo("/api/recommendations"))
                 .atPriority(10)
                 .willReturn(ok()
                         .withHeader("Content-Type", "application/json")
